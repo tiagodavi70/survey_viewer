@@ -1,0 +1,10 @@
+
+.container {
+    display: inline-block;
+    width: 35%;
+}
+
+#container_interaction {
+    float: left;
+}
+

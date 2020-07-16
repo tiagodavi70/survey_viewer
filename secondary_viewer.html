@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Survey Viewer</title>
+    
+    <meta name="description" content="Survey Viewer">
+    <meta name="author" content="Bernardo Marques & Tiago Araújo & João Alves & Paulo Dias & Beatriz Sousa Santos">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://unpkg.com/nouislider@14.6.0/distribute/nouislider.js"></script>
+</head>
+
+<body>
+    <div id="container_interaction" class="container">
+        <div id="buttons">
+
+        </div>
+        <p>
+            
+        </p>
+    </div>
+    <div id="container_sunburst" class="container">
+        <div id="table_overview">
+
+        </div>
+    </div>
+
+    <div id="container_list" class="container">
+        
+    </div>
+</body>
+<script src="source/data.js"></script>
+<script src="source/table.js"></script>
+<script>
+    let t= new Table();
+    t.render();
+</script>
+</html>

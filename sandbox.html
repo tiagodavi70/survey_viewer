@@ -27,7 +27,27 @@
             Change Columns
         </button>
     </div>
+
+    <svg width="300" height="300">
+        <text x="150" y="150">
+            <!-- <tspan>
+                hello
+            </tspan>
+            <tspan x="150" dy="30">
+                world
+            </tspan> -->
+        </text>
+    </svg>
 </body>
 
-<script src="source/app.js"></script>
+<script>
+    d3.select("svg").select("text")
+        .selectAll("tspan")
+        .data(["hello", "world"])
+        .join("tspan")
+            .text(d => d)
+            .attr("dy", (d,i) => i * 30)
+            .attr("x", 150)
+</script>
+
 </html>

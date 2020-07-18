@@ -1,7 +1,7 @@
 
 
 class Sunburst {
-    constructor(id, settings, data){
+    constructor(id, data, settings){
         this.id = id;
         this.color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, data.children.length + 1));
     

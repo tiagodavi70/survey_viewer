@@ -1,12 +1,12 @@
 
 
 class SunburstHeatMap {
-    constructor(id, settings, data){
+    constructor(id, data, settings){
         this.id = id;
 
         this.color = d3.scaleSequential(d3.interpolateYlOrBr).domain([0, data.data.maxValue]);
-        
-        let margin = {top: 50, right: 50, bottom: 50, left: 50};
+
+        let margin = {top: 25, right: 25, bottom: 25, left: 25};
         this.width = ((settings.size) || 600) - margin.left - margin.right;
         this.height = ((settings.size) || 600) - margin.top - margin.bottom;
         
@@ -16,6 +16,7 @@ class SunburstHeatMap {
         // console.log(this.depth_index)
         this.margin = margin;
         this.data = data;
+        this.background = (settings.background || "#F0F0FF")
     }
 
     getValue(d){
@@ -32,7 +33,8 @@ class SunburstHeatMap {
         let width = this.width;
         let height = this.height;
         let data = this.data;
-        
+        let legend_size = size / 5;
+
         let labelTransform = (d) => {
             let x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
             let y = (d.y0 + d.y1) / 2 * this.radius;
@@ -40,11 +42,14 @@ class SunburstHeatMap {
         }
 
         let svg_parent = d3.select(this.id).append("svg")
-            .attr("width", size + margin.left + margin.right)  // width + margin.left + margin.right
+            .attr("width", size + margin.left + margin.right + legend_size)  // width + margin.left + margin.right
             .attr("height", size + margin.top + margin.bottom) // height + margin.top + margin.bottom
-            .attr("viewBox", [0, 0, size, size])
+            // .attr("preserveAspectRatio", "xMinYMin meet")
+            // .classed("svg-container", true) 
+            // .classed("svg-content-responsive", true)
+            .attr("viewBox", [-margin.left, 0, size + legend_size, size])
             .style("font", "8px sans-serif")
-            .style("background", "#F8F8F8");
+            .style("background", this.background);
   
         let svg = svg_parent.append("g")
             .attr("transform", `translate(${size / 2},${size / 2})`);
@@ -68,7 +73,7 @@ class SunburstHeatMap {
             .data(this.data.descendants().slice(0))
             .join("path")
                 .attr("fill", d => d.children ? "lightgray" : this.color(this.getValue(d)) )
-                .attr("fill-opacity", d => arcVisible(d.current) ? (d.children ? 0.6 : 0.4) : 0)
+                .attr("fill-opacity", d => arcVisible(d.current) ? (d.children ? 0.8 : 0.75) : 0)
                 .attr("d", d => arc(d.current));
     
         path.filter(d => d.children)
@@ -95,16 +100,6 @@ class SunburstHeatMap {
                         return k.slice(0, 8) + "..."
                     else return k;
                 })
-
-        // label.selectAll("tspan")
-        //     .data(d => d.data.key.split(" "))
-        //     .join("tspan")
-        //         .text(d => d + " ")
-        //         // .attr("transform", (d,i) => "rotate(" + (100*i) + ")")
-        //         .attr("dy", (d,i) => (i * .8) + "em")
-        //         .attr("x", function(d,i){
-        //             return - (i * 2.8 ) + ""
-        //         })
     
         let parent = svg.append("circle")
             .datum(this.data)
@@ -122,6 +117,46 @@ class SunburstHeatMap {
             .on("click", () =>{
                 clicked(stateClicked)
             });
+        
+        let domain_legend = d3.range(this.color.domain()[1] + 1);
+        let legendscale = d3.scaleBand()
+                    .range([legend_size, 0])
+                    .domain(domain_legend)
+                    .paddingInner(0.1);
+
+        let legends = svg.append("g")
+            .attr("transform", `translate(${size/2 - margin.left/2},${size/2 - margin.top/2 - legend_size})`)
+
+        legends.append("rect")
+            .attr("y", -20)
+            .attr("x", -10)
+            .attr("width", legend_size * 0.9)
+            .attr("height", size*.96 - size/2 - margin.top/2 - legend_size)
+            .style("fill", this.background)
+            .style("stroke","lightgrey")
+
+        legends.append("g").selectAll("rect")
+            .data(domain_legend)
+            .join("rect")
+            .attr("y", d => legendscale(d))
+            .attr("width", legend_size * .6)
+            .attr("height", legendscale.bandwidth())
+            .style("fill", d => this.color(d))
+
+        legends.append("g").selectAll("text")
+            .data(domain_legend)
+            .join("text")
+            .attr("x", legend_size * .65)
+            .attr("y", d => legendscale(d) + legendscale.bandwidth() * .7)
+            .style("font-size", "10px")
+            .text(d => d)
+        
+        legends.append("text")
+            .text("Works")
+            .attr("dy", -9)
+            .attr("dx", 37)
+            .style("font-size", "10px")
+
 
         function clicked(p) {
             stateClicked = p.parent || data; 
@@ -151,7 +186,7 @@ class SunburstHeatMap {
                 .filter(function(d) {
                     return +this.getAttribute("fill-opacity") || arcVisible(d.target);
                 })
-                .attr("fill-opacity", d => arcVisible(d.target) ? (d.children ? 0.6 : 0.4) : 0)
+                .attr("fill-opacity", d => arcVisible(d.target) ? (d.children ? 0.8 : 0.75) : 0)
                 .attrTween("d", d => () => arc(d.current));
         
             label.filter(function(d) {

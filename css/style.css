@@ -1,10 +1,85 @@
 
 .container {
     display: inline-block;
-    width: 35%;
 }
 
 #container_interaction {
     float: left;
+    width: 20%;
 }
 
+#container_list {
+    vertical-align: top; 
+    background-color: #F0F0FF;
+}
+
+#div_header {
+    display: table;
+    margin: 0 auto;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+#card_list {
+    width: 20vw;
+    height: 70vh;
+    overflow: auto;
+}
+
+.card {
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 2px 2px 2px grey;
+}
+
+.placeholder {
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    background-color: white;
+    border: 2px dashed salmon;
+    box-shadow: none;
+    color: indianred;
+    font-weight: 700;
+}
+
+.card:hover {
+    border: 2px dashed lightgrey;
+    box-shadow: none;
+}
+
+.card_title {
+    font-size: 20px;
+    font-weight: 700;
+    color: cadetblue;
+    margin-bottom: 10px;
+}
+
+.info {
+    font-weight: 700;
+}
+
+#container_sunburst {
+    width: 120vh;
+}
+
+
+/* .svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    vertical-align: top;
+    overflow: hidden;
+}
+
+.svg-content-responsive {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 0;
+} */

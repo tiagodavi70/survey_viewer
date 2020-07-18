@@ -24,8 +24,11 @@ d3.csv("datasets/taxonomy_tree.csv").then(taxonomy => {
     return d3.csv("datasets/taxonomy_RACollab.csv");
 }).then( leaves => {
     
+    let cards = new Cards("#card_list", leaves);
+    cards.render()
+    
     let nested_heatmap = formatDataHeatMap(data, leaves);
-    sunburst = new SunburstHeatMap("#sunburst_overview", {"depth":visible_hierarchies}, nested_heatmap);
+    sunburst = new SunburstHeatMap("#sunburst_overview", nested_heatmap, {"depth":visible_hierarchies, size: window.innerHeight *.98});
     sunburst.render();
 });
 

@@ -1,5 +1,5 @@
 class Table {
-    constructor(id, settings={}, data){
+    constructor(id, data, settings){
         this.id = id;
         // this.color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, data.children.length + 1));
     
@@ -34,7 +34,7 @@ class Table {
             .data(data)
             .join('tr')
             .selectAll('td')
-            .data(function(row, i) {
+            .data((row, i) => {
                 let cell = [];
                 for (let k in row){
                     cell.push(row[k]);

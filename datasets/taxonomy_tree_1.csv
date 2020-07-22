@@ -54,9 +54,9 @@ Communication,intent,respond
 Communication,frequency,never
 Communication,frequency,sometimes
 Communication,frequency,continuous
-Communication,duration communication,short
-Communication,duration communication,intermediate
-Communication,duration communication,long
+Communication,duration,short
+Communication,duration,intermediate
+Communication,duration,long
 Scene capture and tracking,point of interest tracking,sensor
 Scene capture and tracking,point of interest tracking,computer vision
 Scene capture and tracking,scene capture,camera
@@ -83,38 +83,38 @@ Level of user actuation,share or create,remote
 Level of user actuation,symmetry,symmetric
 Level of user actuation,symmetry,asymmetric
 Level of user actuation,symmetry,fully-asymmetric
-Output and augmentation,channel output,vision
-Output and augmentation,channel output,audition
-Output and augmentation,channel output,touch
-Output and augmentation,channel output,kinesthetics
-Output and augmentation,channel output,olfaction
-Output and augmentation,channel output,gustation
-Output and augmentation,channel output,neural oscillation
-Output and augmentation,channel output,galvanism
-Output and augmentation,mode output,unimodal
-Output and augmentation,mode output,redundant
-Output and augmentation,mode output,complementary
-Output and augmentation,customization output,adaptable
-Output and augmentation,customization output,adaptive
-Input modalities,channel input,vision
-Input modalities,channel input,audition
-Input modalities,channel input,touch
-Input modalities,channel input,kinesthetics
-Input modalities,channel input,olfaction
-Input modalities,channel input,gustation
-Input modalities,channel input,neural oscillation
-Input modalities,channel input,galvanism
-Input modalities,mode input,unimodal
-Input modalities,mode input,redundant
-Input modalities,mode input,complementary
-Input modalities,customization input,adaptable
-Input modalities,customization input,adaptive
+Output and augmentation,channel,vision
+Output and augmentation,channel,audition
+Output and augmentation,channel,touch
+Output and augmentation,channel,kinesthetics
+Output and augmentation,channel,olfaction
+Output and augmentation,channel,gustation
+Output and augmentation,channel,neural oscillation
+Output and augmentation,channel,galvanism
+Output and augmentation,mode,unimodal
+Output and augmentation,mode,redundant
+Output and augmentation,mode,complementary
+Output and augmentation,customization,adaptable
+Output and augmentation,customization,adaptive
+Input modalities,channel,vision
+Input modalities,channel,audition
+Input modalities,channel,touch
+Input modalities,channel,kinesthetics
+Input modalities,channel,olfaction
+Input modalities,channel,gustation
+Input modalities,channel,neural oscillation
+Input modalities,channel,galvanism
+Input modalities,mode,unimodal
+Input modalities,mode,redundant
+Input modalities,mode,complementary
+Input modalities,customization,adaptable
+Input modalities,customization,adaptive
 Research,domain,industrial
-Research,domain,education / training
+Research,domain,education or training
 Research,domain,construction
-Research,domain,tourism / heritage
+Research,domain,tourism or heritage
 Research,domain,medicine
-Research,domain,entertaining / gaming
+Research,domain,entertaining or gaming
 Research,domain,others
 Research,context,basic research
 Research,context,applied research

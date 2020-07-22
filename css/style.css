@@ -4,8 +4,8 @@
 }
 
 #container_interaction {
+    width: 20vw;
     float: left;
-    width: 20%;
 }
 
 #container_list {
@@ -13,17 +13,14 @@
     background-color: #F0F0FF;
 }
 
-#div_header {
-    display: table;
-    margin: 0 auto;
-    font-size: 30px;
-    font-weight: 700;
-}
-
 #card_list {
     width: 20vw;
     height: 70vh;
     overflow: auto;
+}
+
+#container_mainvis {
+    width: 120vh;
 }
 
 .card {
@@ -33,18 +30,6 @@
     margin-top: 20px;
     background-color: white;
     box-shadow: 2px 2px 2px grey;
-}
-
-.placeholder {
-    padding: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 20px;
-    background-color: white;
-    border: 2px dashed salmon;
-    box-shadow: none;
-    color: indianred;
-    font-weight: 700;
 }
 
 .card:hover {
@@ -63,10 +48,64 @@
     font-weight: 700;
 }
 
-#container_sunburst {
-    width: 120vh;
+#div_header {
+    display: table;
+    margin: 0 auto;
+    font-size: 30px;
+    font-weight: 700;
 }
 
+.placeholder {
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    background-color: white;
+    border: 2px dashed salmon;
+    box-shadow: none;
+    color: indianred;
+    font-weight: 700;
+}
+
+.tablejs {
+    font-family: Tahoma; 
+}
+
+.t_head {
+    background-color: cadetblue;
+    color:white;
+    padding: 10px;
+}
+
+.id_head {
+    font-weight: 700;
+    border-bottom: none;
+}
+
+.t_body {
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
+
+.tablejs tr:nth-child(even) {
+    background: lightgrey;
+}
+
+#nouislider {
+    width: 13vw;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    margin-left: 15px;
+    padding-right: 20px;
+}
+
+.noUi-base {
+    width : 13vw
+}
+
+.noUi-connect {
+    background: cadetblue;
+}
 
 /* .svg-container {
     display: inline-block;

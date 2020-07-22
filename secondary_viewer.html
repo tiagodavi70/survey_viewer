@@ -8,6 +8,7 @@
     <meta name="description" content="Survey Viewer">
     <meta name="author" content="Bernardo Marques & Tiago Araújo & João Alves & Paulo Dias & Beatriz Sousa Santos">
 
+    <link rel="stylesheet" href="https://unpkg.com/nouislider@14.6.0/distribute/nouislider.css">
     <link rel="stylesheet" href="css/style.css">
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -24,6 +25,9 @@
         </p>
     </div>
     <div id="container_sunburst" class="container">
+        <div id="nouislider">
+
+        </div>
         <div id="table_overview">
 
         </div>
@@ -35,8 +39,51 @@
 </body>
 <script src="source/data.js"></script>
 <script src="source/table.js"></script>
+<script src="source/cards.js"></script>
+<script src="source/histogram.js"></script>
+
 <script>
-    let t= new Table();
-    t.render();
+
+    d3.csv("datasets/taxonomy_RACollab.csv").then(data=> {
+
+        // table
+        let vis = new Cards("#table_overview", data);
+
+        // histogram
+        data.bins = Histogram.binData(data);
+        // let vis = new Histogram("#table_overview", data, {"size": 300});
+
+        // year filter
+        let year_extent = d3.extent(data.bins, d => d.x0)
+        let slider = document.getElementById('nouislider');
+        
+        noUiSlider.create(slider, {
+            "start": year_extent,
+            "connect": true,
+            "range": {
+                'min': year_extent[0],
+                'max': year_extent[1]
+            },
+            "behaviour": 'tap-drag',
+            "tooltips": true,
+            "step": 1,
+            format: {
+                to: function (value) {
+                    return value + '';
+                },
+                // 'from' the formatted value.
+                // Receives a string, should return a number.
+                from: function (value) {
+                    return Number(value.replace(',-', ''));
+                }
+            }
+        });
+
+        slider.noUiSlider.on("slide", values => {
+            vis.render({"min":+values[0], "max":+values[1]})
+        })
+    })
+
 </script>
+
 </html>

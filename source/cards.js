@@ -3,21 +3,30 @@ class Cards {
     constructor(id, data, settings) {
         this.data = data;
         this.id = id;
+        this.render();
     }
 
-    render() {
-        d3.select(this.id)
+    render(filter={}) {
+        checkFilter(filter, this.data);
+
+        this.cards = d3.select(this.id)
             .selectAll("div")
-            .data(this.data)
+            .data(this.data.filter(d => d["year"] >= filter.min && d["year"] <= filter.max))
             .join("div")
                 .classed("card", true)
                 .html(d => `
-                    <div class="card_title">
+                    <span class="card_title">
                         ${d.id}
-                    </div>
-                    <div>
+                    </span>
+                    </br>
+                    </br>
+                    <span>
                         Year:  <span class="info"> ${d.year} </span> </br>
-                    </div>
+                    </span>
                 `)
+    }
+
+    bind(eventName="click", f) {
+        this.cards.on(eventName, f)
     }
 }

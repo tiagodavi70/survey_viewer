@@ -16,24 +16,69 @@ class SunburstHeatMap {
         // console.log(this.depth_index)
         this.margin = margin;
         this.data = data;
-        this.background = (settings.background || "#F0F0FF")
+        this.background = (settings.background || "#F0F0FF");
+        
+        this.create();
+        this.render();
+        this.legend();
     }
 
-    getValue(d){
+    getValue(d, filter){
         let leaves = this.data.data.leaves;
         let group = leaves
+            .filter(leaf => leaf["year"] >= filter.min && leaf["year"] <= filter.max) // filter year
             .map(leaf => leaf[d.parent.data.key]) // aggregation of column
             .filter(value => value.split(", ").indexOf(d.data.key) >= 0) // count of attributes
         return group.length;
     }
 
-    render() {
+    render(filter={}) {
+        checkFilter(filter, this.data.leaves)
+        this.path
+            .attr("fill", d => d.children ? "lightgray" : this.color(this.getValue(d, filter)) )
+            
+        this.path.selectAll("title")
+            .text(d => `${d.ancestors().map(d => d.data.key).reverse().join("/")}\n` 
+                    + ( d.children ? `` : `Works: ${this.getValue(d, filter)}`));
+    }
+
+    isValidSelection(template, d) {
+        if (!d.children) {
+            return template[d.parent.data.key] == d.data.key;
+        } else {
+            return false;
+        }
+    }
+
+    select(item={}) {
+        if (!item) {
+            this.render();
+        } else{
+            d3.select("#parentText")
+            .text(item["id"])
+            .attr("dx", (-item["id"].length * .2) + "em")
+
+            this.path
+                .attr("fill", d => {
+                    return d.children ? "lightgray" : (!this.isValidSelection(item, d) ? `lightgray` : `cadetblue`) ; 
+                })
+                
+            this.path.selectAll("title")
+                .text(d => `${d.ancestors().map(d => d.data.key).reverse().join("/")}\n` 
+                        + ( d.children ? `` : item["id"]));
+        }
+    }
+
+
+    create() {
+
         let size = this.size;
         let margin = this.margin;
-        let width = this.width;
-        let height = this.height;
         let data = this.data;
         let legend_size = size / 5;
+        this.legend_size = legend_size;
+        let radius = size/8; // size / 6 for 2 layers
+        this.radius = radius;
 
         let labelTransform = (d) => {
             let x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
@@ -44,18 +89,13 @@ class SunburstHeatMap {
         let svg_parent = d3.select(this.id).append("svg")
             .attr("width", size + margin.left + margin.right + legend_size)  // width + margin.left + margin.right
             .attr("height", size + margin.top + margin.bottom) // height + margin.top + margin.bottom
-            // .attr("preserveAspectRatio", "xMinYMin meet")
-            // .classed("svg-container", true) 
-            // .classed("svg-content-responsive", true)
             .attr("viewBox", [-margin.left, 0, size + legend_size, size])
             .style("font", "8px sans-serif")
             .style("background", this.background);
   
         let svg = svg_parent.append("g")
             .attr("transform", `translate(${size / 2},${size / 2})`);
-        
-        let radius = size/8; // size / 6 for 2 layers
-        this.radius = radius;
+        this.svg = svg;
 
         let arc = d3.arc()
             .startAngle(d => d.x0)
@@ -72,17 +112,18 @@ class SunburstHeatMap {
             .selectAll("path")
             .data(this.data.descendants().slice(0))
             .join("path")
-                .attr("fill", d => d.children ? "lightgray" : this.color(this.getValue(d)) )
                 .attr("fill-opacity", d => arcVisible(d.current) ? (d.children ? 0.8 : 0.75) : 0)
                 .attr("d", d => arc(d.current));
     
+        this.path = path;
+
         path.filter(d => d.children)
             .style("cursor", "pointer")
             .on("click", clicked);
-    
+        
         path.append("title")
             .text(d => `${d.ancestors().map(d => d.data.key).reverse().join("/")}\n` 
-                        + ( d.children ? `` : `Works: ${this.getValue(d)}`));
+                    + ( d.children ? `` : ``));
     
         let label = svg.append("g")
                 .attr("pointer-events", "none")
@@ -107,63 +148,12 @@ class SunburstHeatMap {
             .attr("fill", "none")
             .attr("pointer-events", "all")
             .on("click", clicked);
-
-        let stateClicked = {}
-        let parentText = svg.append("text")
-            .text(" ")
-            .attr("dx", "-.8em")
-            .attr("fill", "black")
-            .attr("pointer-events", "all")
-            .on("click", () =>{
-                clicked(stateClicked)
-            });
         
-        let domain_legend = d3.range(this.color.domain()[1] + 1);
-        let legendscale = d3.scaleBand()
-                    .range([legend_size, 0])
-                    .domain(domain_legend)
-                    .paddingInner(0.1);
-
-        let legends = svg.append("g")
-            .attr("transform", `translate(${size/2 - margin.left/2},${size/2 - margin.top/2 - legend_size})`)
-
-        legends.append("rect")
-            .attr("y", -20)
-            .attr("x", -10)
-            .attr("width", legend_size * 0.9)
-            .attr("height", size*.96 - size/2 - margin.top/2 - legend_size)
-            .style("fill", this.background)
-            .style("stroke","lightgrey")
-
-        legends.append("g").selectAll("rect")
-            .data(domain_legend)
-            .join("rect")
-            .attr("y", d => legendscale(d))
-            .attr("width", legend_size * .6)
-            .attr("height", legendscale.bandwidth())
-            .style("fill", d => this.color(d))
-
-        legends.append("g").selectAll("text")
-            .data(domain_legend)
-            .join("text")
-            .attr("x", legend_size * .65)
-            .attr("y", d => legendscale(d) + legendscale.bandwidth() * .7)
-            .style("font-size", "10px")
-            .text(d => d)
-        
-        legends.append("text")
-            .text("Works")
-            .attr("dy", -9)
-            .attr("dx", 37)
-            .style("font-size", "10px")
-
-
         function clicked(p) {
-            stateClicked = p.parent || data; 
             parent.datum(p.parent || data);
 
             let parentKey = p.data.key || " ";
-            parentText.text(parentKey)
+            d3.select("#parentText").text(parentKey)
                 .attr("dx", d => (-parentKey.length * .2) + "em")
 
             data.each(d => d.target = {
@@ -195,6 +185,7 @@ class SunburstHeatMap {
                 .attr("fill-opacity", d => +labelVisible(d.target))
                 .attrTween("transform", d => () => labelTransform(d.current));
         }
+        this.clicked = clicked;
 
         function format(d) {
             return d3.format(",d")(d);
@@ -207,5 +198,58 @@ class SunburstHeatMap {
         function labelVisible(d) {
             return d.y1 <= 4 && d.y0 >= 1 && (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03;
         }
+    }
+
+    legend() {
+        // this.stateClicked = {}
+        let svg = this.svg;
+        let legend_size = this.legend_size;
+        let margin = this.margin;
+
+        svg.append("text")
+            .text(" ")
+            .attr("dx", "-.8em")
+            .attr("fill", "black")
+            .attr("id", "parentText")
+            .attr("pointer-events", "none")
+        
+        let domain_legend = d3.range(this.color.domain()[1] + 1);
+        let legendscale = d3.scaleBand()
+                    .range([legend_size, 0])
+                    .domain(domain_legend)
+                    .paddingInner(0.1);
+
+        let legends = svg.append("g")
+            .attr("transform", `translate(${this.size/2 - margin.left/2},${this.size/2 - margin.top/2 - legend_size})`)
+
+        legends.append("rect")
+            .attr("y", -20)
+            .attr("x", -10)
+            .attr("width", legend_size * 0.9)
+            .attr("height", this.size*.96 - this.size/2 - margin.top/2 - legend_size)
+            .style("fill", this.background)
+            .style("stroke","lightgrey")
+
+        legends.append("g").selectAll("rect")
+            .data(domain_legend)
+            .join("rect")
+            .attr("y", d => legendscale(d))
+            .attr("width", legend_size * .6)
+            .attr("height", legendscale.bandwidth())
+            .style("fill", d => this.color(d))
+
+        legends.append("g").selectAll("text")
+            .data(domain_legend)
+            .join("text")
+            .attr("x", legend_size * .65)
+            .attr("y", d => legendscale(d) + legendscale.bandwidth() * .7)
+            .style("font-size", "10px")
+            .text(d => d)
+        
+        legends.append("text")
+            .text("Works")
+            .attr("dy", -9)
+            .attr("dx", 37)
+            .style("font-size", "10px")
     }
 }

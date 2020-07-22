@@ -28,8 +28,8 @@ function formatDataHeatMap(dataTree, dataLeaves={}) {
 
     nested = nested.rollup(function(leaves) { 
         let f_group = dataLeaves
-            .map(d => d[leaves[0]["d2"]])
-            .filter(value => value.split(", ").indexOf(leaves[0]["leaf"]) >= 0); // search structure and count
+            .map(d => d[leaves[0]["d2"]]) // group by dimension
+            .filter((value, i, arr) => value.split(", ").indexOf(leaves[0]["leaf"]) >= 0 ); // search structure and count
         leaves_value.push(f_group.length);
         return 1;
     }).entries(dataTree)
@@ -42,6 +42,18 @@ function formatDataHeatMap(dataTree, dataLeaves={}) {
             .sum(d => d.value ? d.value : 0)
             .sort((a, b) => b.value - a.value))
     
-    return partition(nested);
+    let complete = partition(nested);
+    complete.leaves = dataLeaves; 
+    return complete;
+}
+
+
+function checkFilter(filter, data, f= d=> +d.year) {
+    if (!filter.min){
+        filter.min = d3.min(data, f);
+    }
+    if (!filter.max){
+        filter.max = d3.max(data, f);
+    }
 }
 

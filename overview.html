@@ -7,7 +7,8 @@
     
     <meta name="description" content="Survey Viewer">
     <meta name="author" content="Bernardo Marques & Tiago Araújo & João Alves & Paulo Dias & Beatriz Sousa Santos">
-
+    
+    <link rel="stylesheet" href="https://unpkg.com/nouislider@14.6.0/distribute/nouislider.css">
     <link rel="stylesheet" href="css/style.css">
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -16,49 +17,24 @@
 
 <body>
     <div id="container_interaction" class="container">
-        <div id="dropdowns">
-
-        </div>
-        <p>
-            Click on the leaves to expand </br>
-            Click on the center to return </br>
-        </p>
-
-
-        <div class="placeholder">
-            Slider
-        </div>
-
-        <div class="placeholder">
-            Year Histogram
-        </div>
-
+        <div id="nouislider"></div>
+        <div id="histogram"></div>
     </div>
-    <div id="container_sunburst" class="container">
-        <div id="sunburst_overview">
-
-        </div>
+    <div id="container_mainvis" class="container">
+        <div id="sunburst_overview"></div>
     </div>
 
     <div id="container_list" class="container">
         <div id="div_header">
             Works
         </div>
-        <div id="card_list">
-            <!-- <div class="card">
-                <div class="card_title">
-                    aaa
-                </div>
-                <div>
-                    Year:  <span class="info"> 2019 </span> </br>
-                </div> -->
-            </div>
-        </div>
+        <div id="card_list"></div>
     </div>
 </body>
 <script src="source/data.js"></script>
-<script src="source/sunburst.js"></script>
 <script src="source/sunburst_heatmap.js"></script>
+<script src="source/table.js"></script>
 <script src="source/cards.js"></script>
+<script src="source/histogram.js"></script>
 <script src="source/overview.js"></script>
 </html>

@@ -1,0 +1,31 @@
+.card {
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 2px 2px 2px grey;
+}
+
+.card:hover {
+    border: 2px dashed lightgrey;
+    box-shadow: none;
+}
+
+.card_title {
+    font-size: 20px;
+    font-weight: 700;
+    color: cadetblue;
+    margin-bottom: 10px;
+}
+
+.info {
+    font-weight: 700;
+}
+
+#div_header {
+    display: table;
+    margin: 0 auto;
+    font-size: 30px;
+    font-weight: 700;
+}

@@ -1,0 +1,74 @@
+
+.container {
+    display: inline-block;
+}
+
+#container_interaction {
+    width: 20vw;
+    float: left;
+    margin-left: 2vw;
+}
+
+#container_list {
+    vertical-align: top;
+}
+
+#card_list {
+    width: 20vw;
+    height: 70vh;
+    overflow: auto;
+    background-color: #F0F0FF;
+}
+
+#container_mainvis {
+    width: 100vh;
+    margin-left: 5vw;
+
+}
+
+.placeholder {
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    background-color: white;
+    border: 2px dashed salmon;
+    box-shadow: none;
+    font-weight: 700;
+    color:white
+}
+
+
+.placeholder:hover {
+    color: indianred;
+}
+
+#nouislider {
+    /* width : 20vw; */
+    margin-bottom: 50px;
+    margin-top: 50px;
+    margin-left: 15px;
+    padding-right: 20px;
+}
+
+#nouislider, .noUi-base {
+    width : 18vw
+}
+
+.noUi-connect {
+    background: cadetblue;
+}
+
+h1 {
+    font-size: 20px;
+    text-align: left;
+    /* background-color: lightblue; */
+    border-bottom: 2px solid cadetblue;
+    padding: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: auto;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

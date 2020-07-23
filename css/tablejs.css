@@ -1,0 +1,32 @@
+
+.tablejs {
+    font-family: Tahoma; 
+    max-height: 200px;
+}
+
+.t_head {
+    background-color: cadetblue;
+    color:white;
+    padding: 10px;
+}
+
+.id_head {
+    font-weight: 700;
+    border-bottom: none;
+}
+
+.t_body {
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
+
+.tablejs tr:nth-child(even) {
+    background: lightgrey;
+}
+
+.tablejs tr:hover {
+    box-shadow: 2px 2px 2px grey;
+    background: #ceedee;
+    color: black;
+    font-weight: 500;
+}

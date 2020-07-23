@@ -16,11 +16,13 @@ d3.csv("datasets/taxonomy_tree.csv").then(tax => {
 
     let cards = new Cards("#card_list", data);
     
-    let sunburst = new SunburstHeatMap("#sunburst_overview", nested_heatmap, {"depth":visible_hierarchies, size: window.innerHeight *.88});
-    let histogram = new Histogram("#histogram", data, {"size": window.innerWidth * .15})
+    let sunburst = new SunburstHeatMap("#sunburst_overview", nested_heatmap, {"depth":visible_hierarchies, "size": window.innerHeight *.78});
+    let histogram = new Histogram("#histogram", data, {"size": window.innerWidth * .20})
+    let table = new Table("#table_overview", data, {"size": window.innerHeight *.78})
 
-    cards.bind("click", d => sunburst.select(d))
-    generate_slider('nouislider', data.bins, [cards, histogram, sunburst])
+    cards.bind("click", item => sunburst.select(item))
+
+    generate_slider('nouislider', data.bins, [cards, histogram, sunburst, table])
 });
 
 

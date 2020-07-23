@@ -41,8 +41,8 @@ body {
 } */
 
 .pc-tab {
-  width: 100%;
-  max-width: 700px;
+  width: 106vh; /* 88vh + 88/5 (sunburst extra size)*/
+  /* max-width: 700px; */
   margin: 0 auto;
 }
 .pc-tab ul {
@@ -51,7 +51,7 @@ body {
   padding: 0;
 }
 .pc-tab ul li label {
-  font-family: "Raleway";
+  /* font-family: "Raleway"; */
   float: left;
   padding: 15px 25px;
   border: 1px solid #ddd;
@@ -73,14 +73,17 @@ body {
   clear: both;
 }
 .pc-tab section div {
-  padding: 20px;
-  width: 100%;
+  padding: 2px;
+  padding-left: 20px;
+  /* padding-right: 0px; */
+  width: 92vh;
   border: 1px solid #ddd;
   background: #fff;
   line-height: 1.5em;
   letter-spacing: 0.3px;
   color: #444;
 }
+
 .pc-tab section div h2 {
   margin: 0;
   /* font-family: "Raleway"; */

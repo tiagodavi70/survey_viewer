@@ -33,9 +33,18 @@ class Histogram {
 
         this.y = d3.scaleLinear()
             .domain([0, d3.max(data.bins, d => d.length)]).nice()
-            .range([this.height - margin.bottom, margin.top])
-        
+            .range([this.height - margin.bottom - 15, margin.top])
+
+        this.svg.selectAll("text")
+            .data(data.bins)
+            .join("text")
+                .attr("x", d => this.x(d.x0) + 1)
+                .attr("y", d => this.size)
+                .style("font-size", (data.bins.length * 2.5) + "px")
+                .attr("dx", d => (d.x0 + "").length * 4.5)
+                .text(d => d.x0);
         this.render();
+
     }
 
     render(filter={}) {
@@ -52,15 +61,11 @@ class Histogram {
                             .attr("x", d => x(d.x0) + 1)
                             .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
                             .attr("y", d => y(d.length))
-                            .attr("height", d => y(0) - y(d.length))
+                            .attr("height", d => y(0) - y(d.length) )
                             .attr("fill", d =>  d.x0 >= filter.min && d.x0 <= filter.max ? "cadetblue" : "lightgrey")
                         .append("title")
                             .text(d => "Works: " + d.length),
                 update => update
-                            .attr("x", d => x(d.x0) + 1)
-                            .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
-                            .attr("y", d => y(d.length))
-                            .attr("height", d => y(0) - y(d.length))
                             .attr("fill", d =>  d.x0 >= filter.min && d.x0 <= filter.max ? "cadetblue" : "lightgrey")
                         .select("title")
                             .text(d => "Works: " + d.length));

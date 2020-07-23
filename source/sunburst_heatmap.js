@@ -1,5 +1,5 @@
 
-
+// heavely based on https://observablehq.com/@d3/zoomable-sunburst
 class SunburstHeatMap {
     constructor(id, data, settings){
         this.id = id;
@@ -21,6 +21,7 @@ class SunburstHeatMap {
         this.create();
         this.render();
         this.legend();
+        this.selected = {};
     }
 
     getValue(d, filter){
@@ -51,12 +52,22 @@ class SunburstHeatMap {
     }
 
     select(item={}) {
-        if (!item) {
+        
+        if (!item || item === this.selected) {
+            this.selected = {};
+            if (this.data.leaves.map(d => d["id"])
+                    .includes(d3.select("#parentText").text())){
+                        d3.select("#parentText")
+                        .text("")
+                        .attr("dx", (-item["id"].length * .2) + "em")
+            }
             this.render();
-        } else{
-            d3.select("#parentText")
-            .text(item["id"])
-            .attr("dx", (-item["id"].length * .2) + "em")
+        } else {
+            this.selected = item;
+            if (d3.select("#parentText").text() === " ")
+                d3.select("#parentText")
+                    .text(item["id"])
+                    .attr("dx", (-item["id"].length * .2) + "em")
 
             this.path
                 .attr("fill", d => {
@@ -68,7 +79,6 @@ class SunburstHeatMap {
                         + ( d.children ? `` : item["id"]));
         }
     }
-
 
     create() {
 
@@ -154,7 +164,7 @@ class SunburstHeatMap {
 
             let parentKey = p.data.key || " ";
             d3.select("#parentText").text(parentKey)
-                .attr("dx", d => (-parentKey.length * .2) + "em")
+                .attr("dx", d => (-parentKey.length * .25) + "em")
 
             data.each(d => d.target = {
                 x0: Math.max(0, Math.min(1, (d.x0 - p.x0) / (p.x1 - p.x0))) * 2 * Math.PI,
@@ -226,7 +236,7 @@ class SunburstHeatMap {
             .attr("y", -20)
             .attr("x", -10)
             .attr("width", legend_size * 0.9)
-            .attr("height", this.size*.96 - this.size/2 - margin.top/2 - legend_size)
+            .attr("height", this.size*.98 - this.size/2 - margin.top/2 - legend_size)
             .style("fill", this.background)
             .style("stroke","lightgrey")
 

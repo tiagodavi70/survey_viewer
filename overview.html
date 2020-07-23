@@ -9,19 +9,50 @@
     <meta name="author" content="Bernardo Marques & Tiago Araújo & João Alves & Paulo Dias & Beatriz Sousa Santos">
     
     <link rel="stylesheet" href="https://unpkg.com/nouislider@14.6.0/distribute/nouislider.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tabs.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/tablejs.css">
+    <link rel="stylesheet" href="css/layout.css">
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://unpkg.com/nouislider@14.6.0/distribute/nouislider.js"></script>
 </head>
 
 <body>
+    <h1> A Conceptual Model and Taxonomy for Collaborative Augmented Reality </h1>
+
+
     <div id="container_interaction" class="container">
+        
+        <div class="placeholder">
+            Elementos Textuais?</br>
+            Bernardo comentou sobre ter a descrição dos eixos, 
+            talvez fique interessante que quando for clicando 
+            nas folhas vá aparecendo a descrição.
+        </div>
+        <h2> Timeline</h2>
         <div id="nouislider"></div>
         <div id="histogram"></div>
     </div>
     <div id="container_mainvis" class="container">
-        <div id="sunburst_overview"></div>
+        <div class="pc-tab">
+            <input checked="checked" id="tab1" type="radio" name="pct"  />
+            <input id="tab2" type="radio" name="pct" />
+            <nav>
+                <ul>
+                  <li class="tab1">
+                    <label for="tab1">Sunburst</label>
+                  </li>
+                  <li class="tab2">
+                    <label for="tab2">Table</label>
+                  </li>
+                </ul>
+            </nav>
+            <section>
+                <div id="sunburst_overview" class="tab1"> </div>
+                <div id="table_overview" class="tab2"> </div>
+            </section>
+        </div>
     </div>
 
     <div id="container_list" class="container">
@@ -29,6 +60,7 @@
             Works
         </div>
         <div id="card_list"></div>
+        <div class="placeholder"> Barra de busca? </div>
     </div>
 </body>
 <script src="source/data.js"></script>

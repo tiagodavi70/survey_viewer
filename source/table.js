@@ -9,6 +9,9 @@ class Table {
             .style("overflow", "auto")
             .append('table')
             .classed("tablejs", true);
+        
+        d3.select(table.node().parentNode)
+            .style("height", settings.size? settings.size + "px": "75vh")
 
         // create table header
         table.append('thead').append('tr')
@@ -23,17 +26,6 @@ class Table {
             .selectAll('tr')
             .data(data)
             .join('tr')
-            // .selectAll('td')
-            // .data((row, i) => {
-            //     let cell = [];
-            //     for (let k in row){
-            //         cell.push(row[k]);
-            //     }
-            //     return cell;
-            // }).join('td')
-            //     .html(d => d)
-            //     .classed("t_body", true)
-            //     .classed("id_head", (d, i) => i === 0);
         
         this.table = table;
         this.render()

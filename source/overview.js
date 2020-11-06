@@ -4,6 +4,12 @@ let visible_hierarchies = 3;
 let taxonomy = 0;
 let defaultcolor = "burlywood"
 let description = "";
+let image_path = "image_taxonomy.png"
+
+d3.select("#image_taxonomy")
+    .style("width", window.innerHeight *.95 + "px")
+    // .style("height", window.innerHeight *.82 + "px")
+    .attr("src", image_path)
 
 d3.json("datasets/description.json").then(desc => {
     description = desc;

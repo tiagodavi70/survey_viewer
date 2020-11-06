@@ -67,10 +67,10 @@ class SunburstHeatMap {
             this.leaf_text = "";
             this.render();
         } else {
-            if (!this.selected.id) {
-                console.log(d3.select("#parentText").text(), this.leaf_text)
-                this.leaf_text = d3.select("#parentText").text()
-            }
+            // if (!this.selected.id) {
+            //     console.log(d3.select("#parentText").text(), this.leaf_text)
+            //     this.leaf_text = d3.select("#parentText").text()
+            // }
                 
             this.selected = item;
             // if (d3.select("#parentText").text() === " ")

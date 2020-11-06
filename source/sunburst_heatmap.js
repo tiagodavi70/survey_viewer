@@ -60,9 +60,9 @@ class SunburstHeatMap {
             this.selected = {};
             if (this.data.leaves.map(d => d["id"])
                     .includes(d3.select("#parentText").text())){
-                        d3.select("#parentText")
-                        .text(this.leaf_text)
-                        .attr("dx", (-item["id"].length * .2) + "em")
+                        // d3.select("#parentText")
+                        // .text(this.leaf_text)
+                        // .attr("dx", (-item["id"].length * .2) + "em")
             }
             this.leaf_text = "";
             this.render();
@@ -74,9 +74,9 @@ class SunburstHeatMap {
                 
             this.selected = item;
             // if (d3.select("#parentText").text() === " ")
-                d3.select("#parentText")
-                    .text(item["id"])
-                    .attr("dx", (-item["id"].length * .2) + "em")
+                // d3.select("#parentText")
+                //     .text(item["id"])
+                //     .attr("dx", (-item["id"].length * .2) + "em")
 
             this.path
                 .attr("fill", d => {

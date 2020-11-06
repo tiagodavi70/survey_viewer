@@ -4,7 +4,7 @@ let visible_hierarchies = 3;
 let taxonomy = 0;
 let defaultcolor = "burlywood"
 let description = "";
-let image_path = "image_taxonomy.png"
+let image_path = "https://raw.githubusercontent.com/tiagodavi70/survey_viewer/master/image_taxonomy.png"
 
 d3.select("#image_taxonomy")
     .style("width", window.innerHeight *.95 + "px")

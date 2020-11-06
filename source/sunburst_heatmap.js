@@ -19,6 +19,7 @@ class SunburstHeatMap {
         this.data = data;
         this.background = (settings.background || "#F0F0FF");
         this.clickcb = settings.clickcb;
+        this.leaf_text = "";
         
         this.create();
         this.render();
@@ -60,13 +61,19 @@ class SunburstHeatMap {
             if (this.data.leaves.map(d => d["id"])
                     .includes(d3.select("#parentText").text())){
                         d3.select("#parentText")
-                        .text("")
+                        .text(this.leaf_text)
                         .attr("dx", (-item["id"].length * .2) + "em")
             }
+            this.leaf_text = "";
             this.render();
         } else {
+            if (!this.selected.id) {
+                console.log(d3.select("#parentText").text(), this.leaf_text)
+                this.leaf_text = d3.select("#parentText").text()
+            }
+                
             this.selected = item;
-            if (d3.select("#parentText").text() === " ")
+            // if (d3.select("#parentText").text() === " ")
                 d3.select("#parentText")
                     .text(item["id"])
                     .attr("dx", (-item["id"].length * .2) + "em")

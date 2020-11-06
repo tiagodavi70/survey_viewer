@@ -43,7 +43,7 @@ d3.json("datasets/description.json").then(desc => {
     
     cards.bind("click", item => {
         sunburst.select(item);
-        sunburst.legends.style("display","none");
+        sunburst.legends.style("display",sunburst.selected.id ? "none" : "inline");
     })
 
     generate_slider('nouislider', data.bins, [cards, histogram, sunburst, table])

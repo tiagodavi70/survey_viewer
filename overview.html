@@ -6,7 +6,8 @@
     <title>Survey Viewer</title>
     
     <meta name="description" content="Survey Viewer">
-    <meta name="author" content="Bernardo Marques & Tiago Araújo & João Alves & Paulo Dias & Beatriz Sousa Santos">
+    <meta name="author" content="Bernardo Marques & Samuel Silva & Tiago Araújo & 
+                                João Alves & Paulo Dias & Beatriz Sousa Santos">
     
     <link rel="stylesheet" href="https://unpkg.com/nouislider@14.6.0/distribute/nouislider.css">
     <link rel="stylesheet" href="css/tabs.css">
@@ -19,20 +20,16 @@
 </head>
 
 <body>
-    <h1> A Conceptual Model and Taxonomy for Collaborative Augmented Reality </h1>
-
+    <h1 class="title">Extending a Collaborative Augmented Reality Taxonomy through Visualization</h1>
 
     <div id="container_interaction" class="container">
-        
-        <div class="placeholder">
-            Elementos Textuais?</br>
-            Bernardo comentou sobre ter a descrição dos eixos, 
-            talvez fique interessante que quando for clicando 
-            nas folhas vá aparecendo a descrição.
-        </div>
         <h2> Timeline</h2>
         <div id="nouislider"></div>
         <div id="histogram"></div>
+        <div id="description">
+            <h3 class="title" id="desctitle"></h3>
+            <div id="textdescription"></div>
+        </div>
     </div>
     <div id="container_mainvis" class="container">
         <div class="pc-tab">
@@ -56,14 +53,12 @@
     </div>
 
     <div id="container_list" class="container">
-        <div id="div_header">
-            Works
-        </div>
+        <div id="div_header"> Works </div>
         <div id="card_list"></div>
-        <div class="placeholder"> Barra de busca? </div>
     </div>
 </body>
 <script src="source/data.js"></script>
+<!-- <script src="source/sunburst.js"></script> -->
 <script src="source/sunburst_heatmap.js"></script>
 <script src="source/table.js"></script>
 <script src="source/cards.js"></script>

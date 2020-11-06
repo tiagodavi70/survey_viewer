@@ -1,6 +1,7 @@
 
 // heavely based on https://observablehq.com/@d3/zoomable-sunburst
 class SunburstHeatMap {
+
     constructor(id, data, settings){
         this.id = id;
 
@@ -17,6 +18,7 @@ class SunburstHeatMap {
         this.margin = margin;
         this.data = data;
         this.background = (settings.background || "#F0F0FF");
+        this.clickcb = settings.clickcb;
         
         this.create();
         this.render();
@@ -71,7 +73,7 @@ class SunburstHeatMap {
 
             this.path
                 .attr("fill", d => {
-                    return d.children ? "lightgray" : (!this.isValidSelection(item, d) ? `lightgray` : `cadetblue`) ; 
+                    return d.children ? "lightgray" : (!this.isValidSelection(item, d) ? `lightgray` : `burlywood`) ; 
                 })
                 
             this.path.selectAll("title")
@@ -85,6 +87,7 @@ class SunburstHeatMap {
         let size = this.size;
         let margin = this.margin;
         let data = this.data;
+        let clickcb = this.clickcb;
         let legend_size = size / 5;
         this.legend_size = legend_size;
         let radius = size/8; // size / 6 for 2 layers
@@ -194,6 +197,13 @@ class SunburstHeatMap {
             }).transition(t)
                 .attr("fill-opacity", d => +labelVisible(d.target))
                 .attrTween("transform", d => () => labelTransform(d.current));
+
+            // if (clickcb) {
+            //     console.log(p)
+            //     console.log(p.data)
+            //     clickcb(p.data.key)
+            // }
+            updatedescription(p)
         }
         this.clicked = clicked;
 
@@ -208,10 +218,16 @@ class SunburstHeatMap {
         function labelVisible(d) {
             return d.y1 <= 4 && d.y0 >= 1 && (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03;
         }
+
+        function updatedescription(d) {
+            if (d.depth == 0) clickcb("Taxonomy")
+            if (d.depth == 1) clickcb(d.data.key)
+            if (d.depth == 2) clickcb(d.parent.data.key)
+        }
     }
 
     legend() {
-        // this.stateClicked = {}
+        
         let svg = this.svg;
         let legend_size = this.legend_size;
         let margin = this.margin;
@@ -230,7 +246,7 @@ class SunburstHeatMap {
                     .paddingInner(0.1);
 
         let legends = svg.append("g")
-            .attr("transform", `translate(${this.size/2 - margin.left/2},${this.size/2 - margin.top/2 - legend_size})`)
+            .attr("transform", `translate(${this.size/2 - margin.left/2}, ${this.size/2 - margin.top/2 - legend_size})`)
 
         legends.append("rect")
             .attr("y", -20)
@@ -261,5 +277,7 @@ class SunburstHeatMap {
             .attr("dy", -9)
             .attr("dx", 37)
             .style("font-size", "10px")
+        
+        this.legends = legends;
     }
 }

@@ -1,8 +1,8 @@
 .card {
-    padding: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 20px;
+    padding: 8px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
     background-color: white;
     box-shadow: 2px 2px 2px grey;
 }
@@ -15,8 +15,8 @@
 .card_title {
     font-size: 20px;
     font-weight: 700;
-    color: cadetblue;
-    margin-bottom: 10px;
+    color: burlywood;
+    margin-bottom: 4px;
 }
 
 .info {

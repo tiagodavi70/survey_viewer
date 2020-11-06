@@ -3,6 +3,7 @@
 class Sunburst {
     constructor(id, data, settings){
         this.id = id;
+        console.log(data)
         this.color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, data.children.length + 1));
     
         let margin = {top: 50, right: 50, bottom: 50, left: 50};

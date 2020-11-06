@@ -5,6 +5,8 @@ class Cards {
         this.id = id;
         this.render();
         this.selected = {};
+        this.color = settings.color || "cadetblue";
+        this.semaphore = true;
     }
 
     render(filter={}) {
@@ -22,35 +24,34 @@ class Cards {
                         ${d.id}
                     </span>
                     </br>
-                    </br>
                     <span>
                         Year:  <span class="info"> ${d.year} </span> </br>
                     </span>
                 `)
                 
         this.cards.select(".card_title")
-                .style("color", "cadetblue")
+                .style("color", this.color)
     }
 
-    bind(eventName="click", f) {
+    bind(eventName="click", callback) {
         let cards = this.cards;
+        let color = this.color;
+        let self = this;
         cards.on(eventName, function(d) {
             cards
                 .style("background", "white")
-                .style("color", "black")
                 .select(".card_title")
-                    .style("color", "cadetblue")
-            if (this.selected !== d) {
+                    .style("color", color)
+            if (self.selected !== d) {
                 d3.select(this)
-                    .style("background", "cadetblue")
-                    .style("color", "white")
+                    .style("background", color)
                     .select(".card_title")
                         .style("color", "white")
-                this.selected = d;
+                self.selected = d;
             } else {
-                this.selected = {};
+                self.selected = {};
             }
-            f(d);
+            callback(d);
         })
     }
 }

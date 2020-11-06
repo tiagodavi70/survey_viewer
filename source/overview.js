@@ -1,26 +1,44 @@
 
 
-// let columns = ["frequency", "duration", "scene capture", "human factors", "share or create", "type", "context"]
-// let order_hierarchies = 3;
-
 let visible_hierarchies = 3;
 let taxonomy = 0;
+let defaultcolor = "burlywood"
+let description = "";
 
-d3.csv("datasets/taxonomy_tree.csv").then(tax => {
+d3.json("datasets/description.json").then(desc => {
+    description = desc;
+
+    d3.select("#desctitle").text("Taxonomy")
+    d3.select("#textdescription").html(description.Taxonomy)
+    return d3.csv("datasets/taxonomy_tree.csv")
+
+}).then(tax => {
     taxonomy = tax;
     return d3.csv("datasets/taxonomy_RACollab.csv");
-}).then( data => {
+}).then(data => {
     
     let nested_heatmap = formatDataHeatMap(taxonomy, data);
     data.bins = Histogram.binData(data)
 
-    let cards = new Cards("#card_list", data);
-    
-    let sunburst = new SunburstHeatMap("#sunburst_overview", nested_heatmap, {"depth":visible_hierarchies, "size": window.innerHeight *.78});
-    let histogram = new Histogram("#histogram", data, {"size": window.innerWidth * .20})
-    let table = new Table("#table_overview", data, {"size": window.innerHeight *.78})
+    let clickcb = header => {
+        let key = Object.keys(description).filter(k => k.toUpperCase() == header.toUpperCase())
+        
+        d3.select("#desctitle").text(key)
+        d3.select("#textdescription").html(description[key])
+    };
 
-    cards.bind("click", item => sunburst.select(item))
+    let cards = new Cards("#card_list", data, {"color": defaultcolor});
+    let sunburst = new SunburstHeatMap("#sunburst_overview", nested_heatmap, {  "depth":visible_hierarchies,
+                                                                                "size": window.innerHeight *.82,
+                                                                                "clickcb": clickcb});
+    let histogram = new Histogram("#histogram", data, {"size": window.innerWidth * .20, "color": defaultcolor})
+    let table = new Table("#table_overview", data, {"size": window.innerHeight *.78, "color": defaultcolor})
+
+    
+    cards.bind("click", item => {
+        sunburst.select(item);
+        sunburst.legends.style("display","none");
+    })
 
     generate_slider('nouislider', data.bins, [cards, histogram, sunburst, table])
 });
@@ -59,47 +77,3 @@ function generate_slider(id, bins, charts) {
     })
 }
 
-// d3.csv("datasets/taxonomy_RACollab.csv").then(taxonomy => {
-//     data = taxonomy;
-//     generateDropdown(order_hierarchies, columns);
-//     d3.select("#change").on("mousedown", () => {
-//         updateVis(columns);
-//     });
-//     console.log(formatData(taxonomy, getColumns()))
-//     sunburst = new SunburstHeatMap("#sunburst_overview", {"depth":visible_hierarchies}, formatData(data, getColumns()))
-//     sunburst.render();
-// });
-
-// function generateDropdown(order_hierarchies, columns) {
-//     d3.select("#dropdowns")
-//         .selectAll("select")
-//         .data(d3.range(1, order_hierarchies + 1))
-//         .join("select")
-//             .attr("id", d => "dropdown_" + d)
-//             .on("change", () => updateVis())
-//         .selectAll("option")
-//         .data(columns)
-//         .join("option")
-//             .attr("value", d => d)
-//             .text(d => d)
-    
-//     d3.select("#dropdowns")
-//         .selectAll("select")
-//         .nodes().forEach(function(value, index, arr) {
-//             arr[index].selectedIndex += index;
-//         })
-// }
-
-// function getColumns() {
-//     return d3.select("#dropdowns")
-//         .selectAll("select")
-//         .nodes().map( node => {
-//             return node.value;
-//         });
-// }
-
-// function updateVis() {
-//     d3.select(sunburst.id).select("svg").remove();
-//     sunburst.data = formatData(data, getColumns());
-//     sunburst.render();
-// }

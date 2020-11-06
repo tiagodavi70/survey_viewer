@@ -2,7 +2,7 @@
 class Histogram {
     constructor(id, data, settings={}){
         this.id = id;
-        this.color = "cadetblue";
+        this.color = settings.color || "cadetblue";
 
         let margin = {top: 2, right: 2, bottom: 2, left: 2};
         this.width = (settings.size || 60) - margin.left - margin.right;
@@ -62,11 +62,11 @@ class Histogram {
                             .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
                             .attr("y", d => y(d.length))
                             .attr("height", d => y(0) - y(d.length) )
-                            .attr("fill", d =>  d.x0 >= filter.min && d.x0 <= filter.max ? "cadetblue" : "lightgrey")
+                            .attr("fill", d =>  d.x0 >= filter.min && d.x0 <= filter.max ? this.color : "lightgrey")
                         .append("title")
                             .text(d => "Works: " + d.length),
                 update => update
-                            .attr("fill", d =>  d.x0 >= filter.min && d.x0 <= filter.max ? "cadetblue" : "lightgrey")
+                            .attr("fill", d =>  d.x0 >= filter.min && d.x0 <= filter.max ? this.color : "lightgrey")
                         .select("title")
                             .text(d => "Works: " + d.length));
     }

@@ -80,7 +80,6 @@ Level of user actuation,interact or explore,on-site
 Level of user actuation,interact or explore,remote
 Level of user actuation,share or create,on-site
 Level of user actuation,share or create,remote
-Level of user actuation,share or create,none
 Level of user actuation,symmetry,symmetric
 Level of user actuation,symmetry,asymmetric
 Level of user actuation,symmetry,fully-asymmetric
@@ -115,7 +114,6 @@ Research,domain,education / training
 Research,domain,construction
 Research,domain,tourism / heritage
 Research,domain,medicine
-Research,domain,assistance
 Research,domain,entertaining / gaming
 Research,domain,others
 Research,context,basic research

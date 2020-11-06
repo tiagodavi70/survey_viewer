@@ -40,6 +40,7 @@
 <script src="source/data.js"></script>
 <script src="source/table.js"></script>
 <script src="source/cards.js"></script>
+<script src="source/sunburst.js"></script>
 <script src="source/histogram.js"></script>
 
 <script>
@@ -47,10 +48,10 @@
     d3.csv("datasets/taxonomy_RACollab.csv").then(data=> {
 
         // table
-        let vis = new Cards("#table_overview", data);
-
+        // let vis = new Cards("#table_overview", data);
+        let vis = new Sunburst("#table_overview", data)
         // histogram
-        data.bins = Histogram.binData(data);
+        // data.bins = Histogram.binData(data);
         // let vis = new Histogram("#table_overview", data, {"size": 300});
 
         // year filter

@@ -41,7 +41,7 @@ body {
 } */
 
 .pc-tab {
-  width: 106vh; /* 88vh + 88/5 (sunburst extra size)*/
+  width: 106vh; /* 
   /* max-width: 700px; */
   margin: 0 auto;
 }
@@ -73,10 +73,10 @@ body {
   clear: both;
 }
 .pc-tab section div {
-  padding: 2px;
-  padding-left: 20px;
+  padding: 3px;
+  padding-left: 18px;
   /* padding-right: 0px; */
-  width: 92vh;
+  width: 95vh;
   border: 1px solid #ddd;
   background: #fff;
   line-height: 1.5em;

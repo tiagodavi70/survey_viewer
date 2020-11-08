@@ -4,12 +4,18 @@ let visible_hierarchies = 3;
 let taxonomy = 0;
 let defaultcolor = "burlywood"
 let description = "";
-let image_path = "https://raw.githubusercontent.com/tiagodavi70/survey_viewer/master/image_taxonomy.png"
+let image_path_taxonomy = "https://raw.githubusercontent.com/tiagodavi70/survey_viewer/master/image_taxonomy.png";
+let image_path_legend = "https://raw.githubusercontent.com/tiagodavi70/survey_viewer/master/legend.png";
 
 d3.select("#image_taxonomy")
     .style("width", window.innerHeight *.95 + "px")
     // .style("height", window.innerHeight *.82 + "px")
-    .attr("src", image_path)
+    .attr("src", image_path_taxonomy)
+
+    d3.select("#image_legend")
+    .style("width", window.innerHeight *.95 + "px")
+    // .style("height", window.innerHeight *.82 + "px")
+    .attr("src", image_path_legend)
 
 d3.json("datasets/description.json").then(desc => {
     description = desc;

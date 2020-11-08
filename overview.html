@@ -36,23 +36,30 @@
             <input checked="checked" id="tab1" type="radio" name="pct"  />
             <input id="tab2" type="radio" name="pct" />
             <input id="tab3" type="radio" name="pct" />
+            <input id="tab4" type="radio" name="pct" />
             <nav>
                 <ul>
                   <li class="tab1">
                     <label for="tab1">Sunburst</label>
                   </li>
                   <li class="tab2">
-                    <label for="tab2">Table</label>
+                    <label for="tab2">Legend</label>
                   </li>
                   <li class="tab3">
-                    <label for="tab3">Taxonomy</label>
+                    <label for="tab3">Table</label>
+                  </li>
+                  <li class="tab4">
+                    <label for="tab4">Taxonomy</label>
                   </li>
                 </ul>
             </nav>
             <section>
                 <div id="sunburst_overview" class="tab1"> </div>
-                <div id="table_overview" class="tab2"> </div>
-                <div id="image_overview" class="tab3"> 
+                <div id="legend_overview" class="tab2"> 
+                    <img id="image_legend"></img>
+                </div>
+                <div id="table_overview" class="tab3"> </div>
+                <div id="image_overview" class="tab4"> 
                     <img id="image_taxonomy"></img>
                 </div>
             </section>

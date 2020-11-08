@@ -10,13 +10,15 @@
 
 #tab1:checked ~ section .tab1,
 #tab2:checked ~ section .tab2,
-#tab3:checked ~ section .tab3 {
+#tab3:checked ~ section .tab3,
+#tab4:checked ~ section .tab4 {
   display: block;
 }
 
 #tab1:checked ~ nav .tab1,
 #tab2:checked ~ nav .tab2,
-#tab3:checked ~ nav .tab3 {
+#tab3:checked ~ nav .tab3,
+#tab4:checked ~ nav .tab4 {
   color: red;
 }
 
@@ -93,14 +95,16 @@ body {
 
 #tab1:checked ~ nav .tab1 label,
 #tab2:checked ~ nav .tab2 label,
-#tab3:checked ~ nav .tab3 label {
+#tab3:checked ~ nav .tab3 label,
+#tab4:checked ~ nav .tab4 label {
   background: white;
   color: #111;
   position: relative;
 }
 #tab1:checked ~ nav .tab1 label:after,
 #tab2:checked ~ nav .tab2 label:after,
-#tab3:checked ~ nav .tab3 label:after {
+#tab3:checked ~ nav .tab3 label:after,
+#tab4:checked ~ nav .tab4 label:after {
   content: '';
   display: block;
   position: absolute;

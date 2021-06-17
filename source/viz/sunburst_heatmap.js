@@ -1,9 +1,9 @@
 
-// heavely based on https://observablehq.com/@d3/zoomable-sunburst
+// heavily based on https://observablehq.com/@d3/zoomable-sunburst
 class SunburstHeatMap {
 
-    constructor(id, data, settings){
-        this.id = id;
+    constructor(dom_id, data, settings){
+        this.dom_id = dom_id;
 
         this.color = d3.scaleSequential(d3.interpolateYlOrBr).domain([0, data.data.maxValue]);
 
@@ -13,7 +13,7 @@ class SunburstHeatMap {
         
         // draw in a square sized svg
         this.size = Math.min(this.width, this.height) * .98; // to avoid screen overflow   
-        this.depth_index = ( (settings.depth) || 2 ) ;
+        this.depth_index = ( (settings.depth) || 2 );
         // console.log(this.depth_index)
         this.margin = margin;
         this.data = data;
@@ -106,7 +106,7 @@ class SunburstHeatMap {
             return `rotate(${x - 90}) translate(${y}, 0) rotate(${x < 180 ? 0 : 180})`;
         }
 
-        let svg_parent = d3.select(this.id).append("svg")
+        let svg_parent = d3.select(this.dom_id).append("svg")
             .attr("width", size + margin.left + margin.right + legend_size)  // width + margin.left + margin.right
             .attr("height", size + margin.top + margin.bottom) // height + margin.top + margin.bottom
             .attr("viewBox", [-margin.left, 0, size + legend_size, size])

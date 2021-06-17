@@ -13,7 +13,7 @@ class Histogram {
         this.margin = margin;
         this.data = data;
 
-        if (!data.bins) {
+        if (!this.data.bins) {
             this.data.bins = Histogram.binData(this.data)
         }
 

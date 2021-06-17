@@ -7,7 +7,8 @@
     <meta name="description" content="Survey Viewer">
     <meta name="author" content="Bernardo Marques & Tiago Araújo & João Alves & Paulo Dias & Beatriz Sousa Santos">
 
-    <link rel="stylesheet" href="css/style.css">
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <link rel="stylesheet" href="css/viz.css">
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://unpkg.com/nouislider@14.6.0/distribute/nouislider.js"></script>
@@ -15,39 +16,18 @@
 
 <body>
     <div class="container">
-        <div id="vis1" class="sunburst">
+        <div id="vis_pc" class="parallel_coordinates">
 
         </div>
-        <div id="vis2" class="sunburst">
-            
+        <div id="vis_pc_2" class="parallel_coordinates">
+
         </div>
     </div>
-    <div id="interface">
-        <button id="change">
-            Change Columns
-        </button>
-    </div>
 
-    <svg width="300" height="300">
-        <text x="150" y="150">
-            <!-- <tspan>
-                hello
-            </tspan>
-            <tspan x="150" dy="30">
-                world
-            </tspan> -->
-        </text>
-    </svg>
 </body>
 
-<script>
-    d3.select("svg").select("text")
-        .selectAll("tspan")
-        .data(["hello", "world"])
-        .join("tspan")
-            .text(d => d)
-            .attr("dy", (d,i) => i * 30)
-            .attr("x", 150)
-</script>
+<script src="source/data.js"></script>
+<script src="source/viz/parallel_coordinates.js"></script>
+<script src="source/sandbox.js"></script>
 
 </html>

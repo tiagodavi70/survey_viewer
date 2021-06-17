@@ -20,7 +20,7 @@ function formatData(data, columns) {
     return partition(nested);
 }
 
-function formatDataHeatMap(dataTree, dataLeaves={}) {
+function formatDataHeatMap(dataTree, dataLeaves) {
     let nested = d3.nest();
     let leaves_value = [];
     for (let col of dataTree.columns)
